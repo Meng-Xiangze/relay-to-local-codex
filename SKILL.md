@@ -3,9 +3,8 @@ name: relay-to-local-codex
 description: >-
   Relay a task to the local Codex desktop thread and bring the finished reply
   back. Use when the user asks Cursor to tell Codex, pass a message, have Codex
-  do the work, start a new Codex thread without stealing focus, or continue the
-  pressure-balance Codex conversation
-  反再系统压力平衡｜六线建模、响应验证与交付.
+  do the work, start a new Codex thread without stealing focus, or continue an
+  existing Codex conversation selected by the user.
 ---
 
 # Relay work to local Codex
@@ -37,7 +36,7 @@ Write the task the way the user would say it: the outcome, the files, and the li
 
 ## Existing desktop thread
 
-Default thread: `01a1804f-46e4-74c3-80f2-1fb7dffc524c` (反再系统压力平衡｜六线建模、响应验证与交付). If the user is already working in another Codex thread, pass that id with `--thread`. Do not switch back to the default thread.
+Pass the intended conversation ID explicitly with `--thread`. If the intended conversation is not clear, ask which one to use.
 
 Save the message as UTF-8. Start the waiter in a background terminal and leave it running. Do not block the chat on it, and do not start a second waiter for the same message.
 
