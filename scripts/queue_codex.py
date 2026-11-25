@@ -22,7 +22,6 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(line_buffering=True)
 
-DEFAULT_THREAD = "01a1804f-46e4-74c3-80f2-1fb7dffc524c"
 IPC_PIPE = r"\\.\pipe\codex-ipc"
 
 
@@ -370,7 +369,7 @@ def start_new_thread_and_wait(exe, message, timeout, cwd, name, announce):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--thread", default=DEFAULT_THREAD)
+    parser.add_argument("--thread", help="Required when relaying to an existing Desktop thread")
     parser.add_argument(
         "--new-thread",
         action="store_true",
@@ -391,6 +390,8 @@ def main():
     parser.add_argument("--wait", action="store_true")
     parser.add_argument("--timeout", type=int, default=3600)
     args = parser.parse_args()
+    if not args.new_thread and not (args.thread or "").strip():
+        parser.error("--thread is required when relaying to an existing Desktop thread")
     message = args.message_file.read_text(encoding="utf-8").strip()
     if not message:
         sys.exit("message file is empty")
